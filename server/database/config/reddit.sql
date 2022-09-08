@@ -14,7 +14,7 @@ CREATE TABLE
     id SERIAL PRIMARY KEY,
     username VARCHAR(20) NOT NULL,
     password VARCHAR(20) NOT NULL,
-    email VARCHAR(50) NOT NULL,
+    email VARCHAR(50) UNIQUE NOT NULL ,
     gender VARCHAR(20),
     img_url VARCHAR(255)
   );

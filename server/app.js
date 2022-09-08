@@ -6,9 +6,9 @@ const compression = require('compression');
 const express = require('express');
 const buildDB = require('./database/config/buildDB');
 // my modules
-// const { users, posts, votes,comments} = require('./routers');
+const { users/* , posts, votes,comments */ } = require('./routers');
 
-buildDB().then((data) => {
+buildDB().then(() => {
   console.log('*The database Connection is established successfully*');
 }).catch((err) => {
   console.log(err);
@@ -23,7 +23,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(compression());
 app.use(express.static(join(__dirname, '..', 'public')));
 
-// app.use(users);
+app.use(users);
 // app.use(posts);
 // app.use(comments);
 // app.use(votes);

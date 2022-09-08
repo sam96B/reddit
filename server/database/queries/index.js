@@ -1,6 +1,6 @@
-const { setUserQuery, authUserQuery } = require('./users');
-const { getPostsQuery, addPostQuery, getAuthPostsQuery } = require('./posts');
-const {
+const { setUserQuery } = require('./users');
+// const { getPostsQuery, addPostQuery, getAuthPostsQuery } = require('./posts');
+/* const {
   addCommentQuery,
   getCommentQuery,
   getCommentsQuery,
@@ -16,12 +16,11 @@ const {
   addCommentUpVoteQuery,
   addCommentDownVoteQuery,
   deleteCommentDownVoteQuery,
-} = require('./votes');
+} = require('./votes'); */
 
 module.exports = {
   setUserQuery,
-  authUserQuery,
-  getPostsQuery,
+  /* getPostsQuery,
   addPostQuery,
   addPostUpVoteQuery,
   deletePostUpVoteQuery,
@@ -36,5 +35,5 @@ module.exports = {
   getCommentQuery,
   getCommentsQuery,
   updateCommentQuery,
-  deleteCommentQuery,
+  deleteCommentQuery, */
 };
