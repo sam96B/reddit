@@ -1,15 +1,15 @@
 const { setUserQuery } = require('../../database/queries');
 
-const setUser = (req, res) => {
-  const user = {
-    name: req.body.username,
-    password: req.body.password,
-    fname: req.body['first-name'],
-    lname: req.body['last-name'],
-  };
-  setUserQuery(user).then((data) => {
-    const { id } = data.rows[0];
-    res.redirect(`/users/${id}`);
+const setUser = (req, res, next) => {
+  const {
+    userName, email, password, gender, imgUrl,
+  } = req.body;
+  setUserQuery({
+    userName, email, password, gender, imgUrl,
+  }).then(() => {
+    next();
+  }).catch((err) => {
+    next(err);
   });
 };
 
