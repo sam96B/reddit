@@ -1,6 +1,6 @@
 # reddit-sami
 
-##[Live Link](https://sami-reddit.herokuapp.com/)
+## [Live Link](https://sami-reddit.herokuapp.com/)
 
 
 ## ER - diagram 
