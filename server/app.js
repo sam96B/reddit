@@ -6,7 +6,7 @@ const compression = require('compression');
 const express = require('express');
 const buildDB = require('./database/config/buildDB');
 // my modules
-const { users/* , posts, votes,comments */ } = require('./routers');
+const { users } = require('./routers');
 
 buildDB().then(() => {
   console.log('*The database Connection is established successfully*');
@@ -28,4 +28,11 @@ app.use(users);
 // app.use(comments);
 // app.use(votes);
 
+app.use((req, res, next) => {
+  res.status(404).sendFile(join(__dirname, '..', 'public', '404.html'));
+  next();
+});
+app.use((req, res) => {
+  res.status(500).sendFile(join(__dirname, '..', 'public', '500.html'));
+});
 module.exports = app;
