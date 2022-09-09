@@ -32,7 +32,7 @@ app.use((req, res, next) => {
   res.status(404).sendFile(join(__dirname, '..', 'public', '404.html'));
   next();
 });
-app.use((req, res) => {
+app.use((err, req, res, next) => {
   res.status(500).sendFile(join(__dirname, '..', 'public', '500.html'));
 });
 module.exports = app;
