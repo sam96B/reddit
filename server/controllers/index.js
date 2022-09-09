@@ -13,6 +13,7 @@ const {
   addPostdownVote,
   deletePostDownVote,
 } = require('./votes');
+const { getHomePage } = require('./pages');
 
 module.exports = {
   setUser,
@@ -25,6 +26,7 @@ module.exports = {
   deletePostUpVote,
   addPostdownVote,
   deletePostDownVote,
+  getHomePage,
   addComment,
   getComment,
   getComments,

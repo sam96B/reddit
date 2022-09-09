@@ -1,4 +1,4 @@
-const { setUserQuery } = require('./users');
+const { setUserQuery, getUserByEmailQuery } = require('./users');
 // const { getPostsQuery, addPostQuery, getAuthPostsQuery } = require('./posts');
 /* const {
   addCommentQuery,
@@ -20,6 +20,7 @@ const {
 
 module.exports = {
   setUserQuery,
+  getUserByEmailQuery,
   /* getPostsQuery,
   addPostQuery,
   addPostUpVoteQuery,

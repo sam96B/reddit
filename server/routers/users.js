@@ -1,19 +1,9 @@
 const express = require('express');
 
 const router = express();
-const { setUser/* , authUser, getUser */ } = require('../controllers');
+const { setUser, getHomePage } = require('../controllers');
+const { signUpValidation, setToken, handleErrors } = require('../middleWares');
 
-// router.post('/authUser', authUser);
-// router.get('/users/:id', getUser);
-
-router.route('/users').post(setUser, (err, req, res, next) => {
-  if (err) {
-    res.json({ error: err.detail });
-  } else {
-    next();
-  }
-}, (req, res) => {
-  res.redirect('/');
-});
+router.route('/users').post(signUpValidation, setUser, setToken, getHomePage, handleErrors);
 
 module.exports = router;

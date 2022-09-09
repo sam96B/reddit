@@ -13,9 +13,9 @@ CREATE TABLE
   users (
     id SERIAL PRIMARY KEY,
     username VARCHAR(20) NOT NULL,
-    password VARCHAR(20) NOT NULL,
+    password VARCHAR(255) NOT NULL,
     email VARCHAR(50) UNIQUE NOT NULL ,
-    gender VARCHAR(20),
+    gender VARCHAR(20) default 'male',
     img_url VARCHAR(255)
   );
 
