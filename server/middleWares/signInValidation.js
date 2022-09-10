@@ -6,7 +6,6 @@ const signInValidation = (req, res, next) => {
   const {
     email, password,
   } = req.body;
-
   singinSchema.validateAsync({
     email, password,
   })
@@ -14,6 +13,7 @@ const signInValidation = (req, res, next) => {
       getUserByEmailQuery(validatedData).then((data) => {
         if (data.rowCount) {
           const { id } = data.rows[0];
+
           getUserByIdQuery(id)
             .then((returnedData) => {
               const hashedPassword = returnedData.rows[0].password;
@@ -23,25 +23,25 @@ const signInValidation = (req, res, next) => {
                     req.body.userId = id;
                     next();
                   } else {
-                    throw new Error('Incorrect password');
+                    next(new DataBaseError('Incorrect password'));
                   }
                 })
                 .catch(() => {
-                  throw new Error('Comparing the password has failed !');
+                  next(new DataBaseError('Comparing the password has failed !'));
                 });
             })
             .catch(() => {
-              throw new Error('Error during query by Id!');
+              next(new DataBaseError('Error during query by Id!'));
             });
         } else {
-          throw new Error('The email that you have entered is not registered !');
+          next(new DataBaseError('The email that you have entered is not registered !'));
         }
       }).catch(() => {
-        throw new Error('Error during query by email address!');
+        next(new DataBaseError('Error during query by email address!'));
       });
     })
     .catch(() => {
-      throw new Error('Error in validating the email and password !');
+      next(new DataBaseError('Error in validating the email and password !'));
     });
 };
 

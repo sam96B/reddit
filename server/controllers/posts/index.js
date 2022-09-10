@@ -3,5 +3,5 @@ const addPost = require('./addPost');
 const getAuthPosts = require('./getAuthPost');
 
 module.exports = {
-  getPosts, addPost,getAuthPosts,
+  getPosts, addPost, getAuthPosts,
 };

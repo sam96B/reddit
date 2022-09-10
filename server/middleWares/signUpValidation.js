@@ -5,14 +5,14 @@ const signUpValidation = (req, res, next) => {
   const {
     userName, email, password, confirmPassword, gender,
   } = req.body;
-
   singupSchema.validateAsync({
     username: userName, email, password, confirmPassword, gender,
   })
     .then((validatedData) => {
       getUserByEmailQuery(validatedData).then((data) => {
         if (data.rowCount) {
-          throw new DataBaseError('The email you entered is already registered !');
+          next(new DataBaseError('The email you entered is already registered !'))
+          //throw new DataBaseError('The email you entered is already registered !');
         } else {
           next();
         }

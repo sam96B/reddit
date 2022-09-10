@@ -2,6 +2,7 @@ const bcrypt = require('bcryptjs');
 const { setUserQuery } = require('../../database/queries');
 
 const setUser = (req, res, next) => {
+
   const {
     userName, email, password, gender, imgUrl,
   } = req.body;

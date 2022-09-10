@@ -1,8 +1,8 @@
 const { deletePostDownVoteQuery } = require('../../../database/queries');
 
 const deletePostDownVote = (req, res) => {
-    const {post_id} = req.body;
-    const userId = 6;
+    const {post_id,userId} = req.body;
+
     deletePostDownVoteQuery({ post_id, userId })
         .then(() => {
             res.json({
