@@ -1,4 +1,4 @@
-const bcrypt = require('bcryptjs');
+const bcrypt = require('bcrypt');
 const { setUserQuery } = require('../../database/queries');
 
 const setUser = (req, res, next) => {
