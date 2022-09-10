@@ -1,6 +1,5 @@
 const postsContainer = document.querySelector('.post-container-light');
 const navRight = document.querySelector('#navRight');
-
 const fetchRequest = (endpoint, method, body) => fetch(endpoint, {
   method,
   headers: {
@@ -148,6 +147,7 @@ const fetchCategory = (endPoint) => {
 };
 
 const createUserSection = (img_url, id, username) => {
+  console.log('woowow')
   const arr = [];
   const node_1 = document.createElement('A');
   node_1.setAttribute('class', 'user-light active');
