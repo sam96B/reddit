@@ -17,7 +17,7 @@ buildDB().then(() => {
   console.log('*The database Connection is established successfully*');
 }).catch((err) => {
   console.log(err);
-}); 
+});
 const app = express();
 
 app.set('port', process.env.PORT || 3001);
@@ -26,6 +26,7 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(compression());
+app.use(express.static(join(__dirname, '..', 'public')));
 
 app.use((req, res, next) => {
   if ('logged' in req.cookies) {
@@ -43,10 +44,8 @@ app.use((req, res, next) => {
     next();
   }
 });
-app.use('/isAuth', (req, res) => {
- 
+app.use('/isAuth', (req, res, next) => {
   if (req.body.userId) {
-   
     const id = req.body.userId;
     getUserInfoByIdQuery(id).then((data) => {
       if (data.rowCount) {
@@ -54,14 +53,14 @@ app.use('/isAuth', (req, res) => {
         res.json({
           auth: true, id, img_url, username,
         });
+      } else {
+        res.json({ auth: false });
       }
-    }).catch((err) => { console.log(err) });
+    }).catch((err) => { next(err); });
   } else {
     res.json({ auth: false });
   }
 });
-
-app.use(express.static(join(__dirname, '..', 'public')));
 
 app.use(users);
 app.use(posts);
