@@ -44,6 +44,13 @@ app.use((req, res, next) => {
     next();
   }
 });
+
+
+app.use(users);
+app.use(posts);
+// app.use(comments);
+app.use(votes);
+app.use(pages);
 app.use('/isAuth', (req, res, next) => {
   if (req.body.userId) {
     const id = req.body.userId;
@@ -61,12 +68,6 @@ app.use('/isAuth', (req, res, next) => {
     res.json({ auth: false });
   }
 });
-
-app.use(users);
-app.use(posts);
-// app.use(comments);
-app.use(votes);
-app.use(pages);
 
 app.use((req, res, next) => {
   res.status(404).sendFile(join(__dirname, '..', 'public', '404.html'));
