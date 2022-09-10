@@ -8,7 +8,6 @@ const addPost = (req, res) => {
       res.redirect(`/users/${userId}`);
     })
     .catch((err) => {
-      console.log(err);
       res.status(500).json({ msg: 'server error' });
     });
 };

@@ -1,35 +1,39 @@
-const { setUserQuery, getUserByEmailQuery, getUserByIdQuery } = require('./users');
-// const { getPostsQuery, addPostQuery, getAuthPostsQuery } = require('./posts');
-/* const {
+const { setUserQuery, getUserByEmailQuery, getUserByIdQuery, getUserInfoByIdQuery} = require('./users');
+const { getPostsQuery, addPostQuery, getAuthPostsQuery } = require('./posts');
+/*
+const {
   addCommentQuery,
   getCommentQuery,
   getCommentsQuery,
   updateCommentQuery,
   deleteCommentQuery,
 } = require('./comments');
+*/
+
 const {
   addPostUpVoteQuery,
   deletePostUpVoteQuery,
   addPostDownVoteQuery,
   deletePostDownVoteQuery,
-  deleteCommentUpVoteQuery,
+  /* deleteCommentUpVoteQuery,
   addCommentUpVoteQuery,
   addCommentDownVoteQuery,
-  deleteCommentDownVoteQuery,
-} = require('./votes'); */
+  deleteCommentDownVoteQuery, */
+} = require('./votes');
 
 module.exports = {
   setUserQuery,
   getUserByEmailQuery,
   getUserByIdQuery,
-  /* getPostsQuery,
+  getPostsQuery,
+  getUserInfoByIdQuery,
   addPostQuery,
   addPostUpVoteQuery,
   deletePostUpVoteQuery,
   getAuthPostsQuery,
   deletePostDownVoteQuery,
   addPostDownVoteQuery,
-  deleteCommentUpVoteQuery,
+  /* deleteCommentUpVoteQuery,
   addCommentUpVoteQuery,
   addCommentDownVoteQuery,
   deleteCommentDownVoteQuery,

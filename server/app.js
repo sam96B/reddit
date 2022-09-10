@@ -3,30 +3,71 @@ const { join } = require('path');
 // third party modules
 const cookieParser = require('cookie-parser');
 const compression = require('compression');
+const { verify } = require('jsonwebtoken');
 const express = require('express');
+const { getUserInfoByIdQuery } = require('./database/queries');
 const buildDB = require('./database/config/buildDB');
+const checkToken = require('./middleWares');
 // my modules
-const { users } = require('./routers');
+const {
+  users, posts, votes, pages,
+} = require('./routers');
 
 buildDB().then(() => {
   console.log('*The database Connection is established successfully*');
 }).catch((err) => {
   console.log(err);
-});
+}); 
 const app = express();
 
-app.set('port', process.env.PORT || 3002);
+app.set('port', process.env.PORT || 3001);
 
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(compression());
+
+app.use((req, res, next) => {
+  if ('logged' in req.cookies) {
+    const cookie = req.cookies.logged;
+    verify(cookie, process.env.SECRET, (err, data) => {
+      if (err) {
+        next(err);
+      } else {
+        const { userId } = data;
+        req.body.userId = userId;
+        next();
+      }
+    });
+  } else {
+    next();
+  }
+});
+app.use('/isAuth', (req, res) => {
+ 
+  if (req.body.userId) {
+   
+    const id = req.body.userId;
+    getUserInfoByIdQuery(id).then((data) => {
+      if (data.rowCount) {
+        const { img_url, username } = data.rows[0];
+        res.json({
+          auth: true, id, img_url, username,
+        });
+      }
+    }).catch((err) => { console.log(err) });
+  } else {
+    res.json({ auth: false });
+  }
+});
+
 app.use(express.static(join(__dirname, '..', 'public')));
 
 app.use(users);
-// app.use(posts);
+app.use(posts);
 // app.use(comments);
-// app.use(votes);
+app.use(votes);
+app.use(pages);
 
 app.use((req, res, next) => {
   res.status(404).sendFile(join(__dirname, '..', 'public', '404.html'));
