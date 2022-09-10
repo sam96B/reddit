@@ -1,4 +1,4 @@
-const bcrypt = require('bcryptjs');
+const bcrypt = require('bcrypt');
 const { singinSchema, DataBaseError, comparePasswords } = require('../Utills');
 const { getUserByEmailQuery, getUserByIdQuery } = require('../database/queries');
 
