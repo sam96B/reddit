@@ -1,11 +1,10 @@
 const { addPostQuery } = require('../../database/queries');
 
 const addPost = (req, res) => {
-  const { userId } = req.params;
-  const { textContent } = req.body;
+  const { textContent ,userId} = req.body;
   addPostQuery({ userId, textContent })
     .then(() => {
-      res.redirect(`/users/${userId}`);
+      res.redirect(`/`);
     })
     .catch((err) => {
       res.status(500).json({ msg: 'server error' });

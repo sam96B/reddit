@@ -4,6 +4,8 @@ const getAuthPosts = (req, res) => {
   const { userId } = req.body;
   getAuthPostsQuery(userId)
     .then((posts) => {
+      console.log(posts.rows)
+
       res.json(posts.rows);
     })
     .catch((err) => {

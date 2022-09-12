@@ -1,6 +1,6 @@
 const { Pool } = require('pg');
 // eslint-disable-next-line import/no-unresolved
-//require('env2')('.env');
+require('env2')('.env');
 
 const {
   TEST_DB_URL,

@@ -1,5 +1,24 @@
 const postsContainer = document.querySelector('.post-container-light');
 const navRight = document.querySelector('#navRight');
+const createPostBtn = document.querySelector('#create-post-btn');
+const modal = document.querySelector('#myModal');
+const addPostbtn = document.querySelector('#create-post-request-btn');
+const postForm = document.querySelector('#post-form');
+
+createPostBtn.onclick = () => {
+  modal.style.display = 'block';
+};
+
+window.onclick = (event) => {
+  if (event.target == modal) {
+    modal.style.display = 'none';
+  }
+};
+/*
+addPostbtn.addEventListener('click',()=>{
+  fetch('/')
+})*/
+
 const fetchRequest = (endpoint, method, body) => fetch(endpoint, {
   method,
   headers: {
@@ -49,29 +68,11 @@ const createElement = (tag, classes, innerText, href, eventType, eventFunction, 
   // add element href
   if (href) { element.href = href; }
   // add event listener
-  if (eventType) {
-    element.addEventListener(eventType, (ele) => {
-      if (eventFunction === upvoteDom) {
-        eventFunction(postId, upVoted);
-        if (upVoted == 1) {
-          upVoted = 0;
-          ele.target.setAttribute('class', 'upvote-0-button-light');
-        } else {
-          upVoted = 1;
-          ele.target.setAttribute('class', 'upvote-1-button-light');
-        }
-      } else {
-        eventFunction(postId, downVoted);
-        if (downVoted == 1) {
-          downVoted = 0;
-          ele.target.setAttribute('class', 'downvote-0-button-light');
-        } else {
-          downVoted = 1;
-          ele.target.setAttribute('class', 'downvote-1-button-light');
-        }
-      }
-    });
-  }
+
+  // if (eventType) {
+
+  // }
+
   // specify element type
   if (type) { element.type = type; }
   // add value
@@ -83,31 +84,93 @@ const clear = (element) => {
   while (element.firstChild) { element.removeChild(element.firstChild); }
 };
 const createPost = (votes, text_content, postID, comments_count, username, time, imgUrl, upVoted, downVoted) => {
+  if(username==='sami96x')
+ {
+  console.log(imgUrl)
+
+  }
   const listItem = createElement('i');
   const postWrapper = createElement('div', ['post-wrapper-light']);
   const compWrapper = createElement('div', ['component-wrapper-light']);
+  compWrapper.addEventListener('click', (event) => {
+    if (upVoted === undefined || downVoted === undefined) {
+      window.location = '/signup';
+      return;
+    }
+    const votesCount = event.path[1].childNodes[1];
+    const downButt = event.path[1].childNodes[3];
+    const upButt = event.path[1].childNodes[0];
+    if (event.target.className.includes('upvote')) {
+      upvoteDom(postID, upVoted);
+      if (upVoted == 1) {
+        upVoted = 0;
+        votesCount.innerText = (+votesCount.innerText) - 1;
+        event.target.setAttribute('class', 'upvote-0-button-light');
+      } else {
+        if (downVoted == 1) {
+          downVoted = 0;
+          votesCount.innerText = (+votesCount.innerText) + 2;
+          downButt.setAttribute('class', 'downvote-0-button-light');
+        } else {
+          votesCount.innerText = (+votesCount.innerText) + 1;
+        }
+
+        upVoted = 1;
+
+        event.target.setAttribute('class', 'upvote-1-button-light');
+      }
+    } else if (event.target.className.includes('downvote')) {
+      downvoteDom(postID, downVoted);
+      if (downVoted == 1) {
+        downVoted = 0;
+        votesCount.innerText = (+votesCount.innerText) + 1;
+        event.target.setAttribute('class', 'downvote-0-button-light');
+      } else {
+        if (upVoted == 1) {
+          upVoted = 0;
+          votesCount.innerText = (+votesCount.innerText) - 2;
+          upButt.setAttribute('class', 'upvote-0-button-light');
+        } else {
+          votesCount.innerText = (+votesCount.innerText) - 1;
+        }
+        downVoted = 1;
+        event.target.setAttribute('class', 'downvote-1-button-light');
+      }
+    }
+  });
   const idInput = createElement('input', null, null, null, null, null, 'hidden', postID);
   const upvoteBtn = createElement('button', [`upvote-${upVoted == 1 ? 1 : 0}-button-light`], null, null, 'click', upvoteDom, null, null, postID, upVoted, downVoted);
-  const voteNumSpan = createElement('span', null, `${votes}`);
+  const voteNumSpan = createElement('span', ['votes-count'], `${votes}`);
   const downvoteBtn = createElement('button', [`downvote-${downVoted == 1 ? 1 : 0}-button-light`], null, null, 'click', downvoteDom, null, null, postID, upVoted, downVoted);
   const contentWrapper = createElement('div', ['content-wrapper-light']);
 
   const textWrapper = createElement('div', ['post-text-wrapper-light'], text_content);
   const detailWrapper = createElement('div', ['detail-wrapper-light']);
   const commentNum = createElement('a', null, `${comments_count} comments`);
-  const bySpan = createElement('span', null, 'by');
-  const ProfileLink = createElement('a', ['owner-light'], username);
-  const timeSpan = createElement('span', null, time ? `${time} ago` : 'now');
 
+  const test = createElement('div', ['post-detailes']);
+  const bySpan = createElement('span', null, 'by');
+  const ProfileLink = createElement('a', ['owner-light'], username, '/users/1');
+  const timeSpan = createElement('span', null, time);
+  const userImg = document.createElement('img');
+
+  userImg.src = imgUrl;
+  userImg.setAttribute('class', 'user-img');
+
+  test.appendChild(bySpan);
+  test.appendChild(userImg);
+  test.appendChild(ProfileLink);
+  test.appendChild(timeSpan);
   compWrapper.appendChild(upvoteBtn);
   compWrapper.appendChild(voteNumSpan);
   compWrapper.appendChild(idInput);
   compWrapper.appendChild(downvoteBtn);
 
   detailWrapper.appendChild(commentNum);
-  detailWrapper.appendChild(bySpan);
+  detailWrapper.appendChild(test);
+  /* detailWrapper.appendChild(bySpan);
   detailWrapper.appendChild(ProfileLink);
-  detailWrapper.appendChild(timeSpan);
+  detailWrapper.appendChild(timeSpan); */
 
   contentWrapper.appendChild(textWrapper);
   contentWrapper.appendChild(detailWrapper);
@@ -123,7 +186,6 @@ const createPosts = (posts) => {
   clear(postsContainer);
   for (let i = 0; i < posts.length; i++) {
     const post = posts[i];
-
     const postElement = createPost(
       post.votes_count,
       post.text_content,
@@ -147,7 +209,10 @@ const fetchCategory = (endPoint) => {
 };
 
 const createUserSection = (img_url, id, username) => {
-  console.log('woowow')
+  
+  postForm.setAttribute('action',`/posts/${id}`);
+  postForm.setAttribute('method','post');
+
   const arr = [];
   const node_1 = document.createElement('A');
   node_1.setAttribute('class', 'user-light active');
@@ -175,6 +240,7 @@ const createUserSection = (img_url, id, username) => {
 };
 
 const createGuestSection = () => {
+  createPostBtn.style.display = 'none';
   const arr = [];
 
   const node_1 = document.createElement('A');

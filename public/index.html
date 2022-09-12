@@ -23,13 +23,32 @@
             </div>
           
         </header>
-
+       
         <div class="home-wrapper-light">
-            
+            <button class="create-post-button-light" id="create-post-btn">create post</button>
                 <ul class="post-container-light">
                 </ul>
             </main>
             
+        </div>
+        <div id="myModal" class="modal">
+            <div class="post-form-container-light">
+                <form class="post-form-light" id="post-form" >
+                    
+                   
+                    <div class="post-form-row-light">
+                        <p><label class="create-post-label-light">Post</label></p>
+                        <textarea id="w3review" name="textContent" rows="4" cols="50" class="create-post-input-light"></textarea>
+                        <br>
+                    </div>
+                    
+                    <div class="post-form-row-light" id="text-type-input">
+                        <label class="create-post-label-light">text</label>
+                        <textarea name="text" rows="6" placeholder="text" class="create-post-input-light"></textarea>
+                    </div>
+                    <button type="submit" class="create-post-form-button-light" id="create-post-request-btn">create post</button>
+                </form>
+            </div>
         </div>
         
     </div>

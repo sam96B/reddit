@@ -124,7 +124,6 @@ input {
 }
 
 
-/* ------------------------------------------------------------------ light mode ---------------------------------------------------------------------*/
 
 .root-light {
     background-color: #F4F6F8;
@@ -171,6 +170,14 @@ input {
     flex-shrink: 0;
     padding: 0px 8px;
     cursor: pointer;
+}
+
+.user-img{
+    width: 15px;
+    height: 15px;
+    border-radius: 50px;
+    margin-left: 8px;
+
 }
 
 .toggler-container-light:hover path {
@@ -273,6 +280,7 @@ input {
 
 .home-wrapper-light {
     display: flex;
+    flex-direction: column;
     align-items: flex-start;
     margin: 0px 10vw;
 }
@@ -466,12 +474,11 @@ input {
 .post-text-wrapper-light {
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
     max-width: 800px;
     padding-bottom: 1px;
     font-size: 13px;
     line-height: 19px;
-    color: rgb(129, 142, 153);
+    
 }
 
 .detail-wrapper-light {
@@ -480,6 +487,20 @@ input {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    display: flex;
+    justify-content: space-between;
+}
+.post-detailes{
+
+    display: flex;
+    justify-content: space-around;
+    width: auto;
+    color: rgb(129, 142, 153);
+    
+}
+.post-author{
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 .detail-wrapper-light>* {
@@ -507,6 +528,8 @@ input {
     text-decoration: none;
     font-weight: 800;
     color: rgb(69, 79, 91);
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 .aside-wrapper-light {
