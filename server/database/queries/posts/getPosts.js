@@ -8,7 +8,7 @@ const getPostsQuery = () => connection.query(
     users.id as userr_id,
     users.img_url,
     users.username ,
-    (select count(*)from votes where votes.post_id=posts.id) votes_count,
+    (select count(*)from down_votes where down_votes.post_id=posts.id) votes_count,
     (select count(*) from comments where comments.post_id = posts.id) comments_count 
     from posts join users on posts.user_id=users.id order by votes_count desc LIMIT 15;`,
 );
