@@ -84,11 +84,7 @@ const clear = (element) => {
   while (element.firstChild) { element.removeChild(element.firstChild); }
 };
 const createPost = (votes, text_content, postID, comments_count, username, time, imgUrl, upVoted, downVoted) => {
-  if(username==='sami96x')
- {
-  console.log(imgUrl)
-
-  }
+  
   const listItem = createElement('i');
   const postWrapper = createElement('div', ['post-wrapper-light']);
   const compWrapper = createElement('div', ['component-wrapper-light']);

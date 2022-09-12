@@ -12,12 +12,12 @@ const checkToken = require('./middleWares');
 const {
   users, posts, votes, pages,
 } = require('./routers');
-/*
+
 buildDB().then(() => {
   console.log('*The database Connection is established successfully*');
 }).catch((err) => {
   console.log(err);
-}); */
+}); 
 const app = express();
 
 app.set('port', process.env.PORT || 3001);
@@ -29,7 +29,6 @@ app.use(compression());
 app.use(express.static(join(__dirname, '..', 'public')));
 
 app.use((req, res, next) => {
-  console.log('endPoint => ', req.url,'method =>',req.method);
   if ('logged' in req.cookies) {
     const cookie = req.cookies.logged;
     verify(cookie, process.env.SECRET, (err, data) => {
